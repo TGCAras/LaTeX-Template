@@ -255,4 +255,20 @@ which inkscape
 Also make sure to enable \wirte18 in your latex editor if you want all svgs to be converted while compiling your TeX document.
 The `detect_file_changes.py` script is a wrapper for `svg2pdftex.py` and takes care of detecting files and tracking changes to avoid convert svgs without any changes happening.
 
+### Search for critical characters
 
+Sometimes when copying snippets from other sources, there might be critical characters involved LaTeX will not like while compiling.
+For this scenario I created the script `check_ascii.py` which will scan all .tex files in a given directory or just the given file and output the document, line and position is was found and will try to "point" at the character.
+The latter only works when you don't indent with tabs.
+
+Pass ``--show-umlaute`` to also show umlaute. They should compile with this LaTeX template and therefore are not displayed by default.
+
+As a show case I inserted a special utf-8 space character (U+200A) which can break your LaTeX document and is very hard to detect by hand.
+With the following command you can easily scan you complete documents for any similar characters.
+Also not that **not all** non ascii characters will break your document!
+```bash
+>>> python scripts/check_ascii.py Thesis
+File Thesis\Preface\Preface.tex:7, char 15 ( )
+Hello,  here > < is a bad space :(
+              ^
+```
