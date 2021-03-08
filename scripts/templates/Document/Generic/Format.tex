@@ -1,0 +1,290 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Load author and document information
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{Generic/myData.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font and Language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{mathptmx}
+\usepackage{array}
+\usepackage{longtable,float}
+\usepackage[scaled=0.8]{helvet}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{etoolbox}
+
+% Reset mathcal font to default
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page Layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{scrpage2}
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\automark[chapter]{chapter}
+\renewcommand*{\headfont}{\normalfont}
+\lehead{Page~\pagemark}
+\rehead{\chaptername~\thechapter}
+\lohead{\headmark}
+\rohead{Page~\pagemark}
+%\rohead{\pagemark}
+\renewcommand*{\chaptermarkformat}{}
+\setheadsepline{0.2pt}
+\addtokomafont{pageheadfoot}{\footnotesize\rmfamily}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+\usepackage[left=3.0cm,right=3.0cm,top=1.25cm,headheight=0.75cm,headsep=1cm,bottom=2.5cm,includehead,ignorefoot]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ToC LoF LoT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tocloft}
+\usepackage{titlesec,titletoc}
+\usepackage{minitoc}
+\usepackage[nottoc]{tocbibind}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\renewcommand*{\cftchapfont}{\bfseries}
+\renewcommand*{\cftsecfont}{}
+\renewcommand*{\cftsubsecfont}{}
+\renewcommand*{\cftsubsubsecfont}{}
+%\renewcommand*{\cftchappagefont}{}
+\renewcommand*{\cftsecpagefont}{}
+\renewcommand*{\cftsubsecpagefont}{}
+\renewcommand*{\cftsubsubsecpagefont}{}
+
+\renewcommand{\cftchapleader}{\bfseries \cftdotfill{1.5}}
+\renewcommand{\cftsecleader}{\cftdotfill{1.5}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{1.5}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{1.5}}
+\renewcommand{\cftfigleader}{\cftdotfill{1.5}}
+\renewcommand{\cfttableader}{\cftdotfill{1.5}}
+
+\renewcommand{\cftbeforechapskip}{0.4cm}
+\renewcommand{\cftbeforesecskip}{0.1cm}
+\renewcommand{\cftbeforesubsecskip}{0.05cm}
+\renewcommand{\cftbeforesubsubsecskip}{0.05cm}
+
+\renewcommand{\cftchapnumwidth}{0.5cm}
+\renewcommand{\cftsecnumwidth}{0.9cm}
+\renewcommand{\cftsubsecnumwidth}{1.2cm}
+\renewcommand{\cftsubsubsecnumwidth}{1.5cm}
+
+\renewcommand{\cftaftertoctitle}{\hfill{\cfttoctitlefont\mdseries\normalsize Page}}
+\renewcommand{\cftafterloftitle}{\hfill{\cfttoctitlefont\mdseries\normalsize Page}}
+\renewcommand{\cftafterlottitle}{\hfill{\cfttoctitlefont\mdseries\normalsize Page}}
+\renewcommand*{\cftmarktoc}{}
+
+\renewcommand{\cftbeforetoctitleskip}{15pt}
+\renewcommand{\cftaftertoctitleskip}{0.8cm}
+\renewcommand{\cftbeforeloftitleskip}{7pt}
+\renewcommand{\cftafterloftitleskip}{0.3cm}
+\renewcommand{\cftbeforelottitleskip}{7pt}
+\renewcommand{\cftafterlottitleskip}{0.3cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter Head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titleformat{\chapter}[hang]{\fontsize{22pt}{16pt}\selectfont\sffamily\bfseries\raggedright}{\thechapter}{34pt}{}
+
+\titleformat{\section}[hang]{\fontsize{17pt}{30pt}\selectfont\sffamily\bfseries}{\thesection}{25pt}{}
+\titleformat{\subsection}[hang]{\fontsize{14pt}{14pt}\selectfont\sffamily\bfseries}{\thesubsection}{17pt}{}
+\titleformat{\subsubsection}[hang]{\normalsize\sffamily\bfseries}{\thesubsubsection}{8pt}{}
+\addtokomafont{chapter}{\large}
+
+\titlespacing*{\chapter}{0pt}{-10pt}{0pt}
+\titlespacing{\section}{0pt}{5pt}{-5pt}
+\titlespacing{\subsection}{0pt}{3pt}{-5pt}
+\titlespacing{\subsubsection}{0pt}{3pt}{-5pt}
+\titlespacing{\paragraph}{0pt}{0pt}{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math Stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+\g@addto@macro\normalsize{%
+    \setlength{\belowdisplayskip}{5pt plus2pt minus2pt}
+    \setlength{\abovedisplayskip}{-10pt plus0pt minus0pt}}
+\makeatother
+
+\newcommand{\notation}[2]{{
+            \renewcommand{\tabcolsep}{0pt}\renewcommand{\arraystretch}{1.2}
+            \begin{tabular}{p{1.5cm}p{3cm}p{11.0cm}l}
+                mit & #2
+            \end{tabular}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Margins
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{setspace}
+\setstretch{1,25}
+\setlength{\intextsep}{13pt}
+\setlength{\textfloatsep}{0.7cm}
+\setlength{\parindent}{0.0cm}
+\setlength{\parskip}{\medskipamount}
+\setlength{\mathindent}{1.25cm}
+%\pretolerance=100
+%\tolerance 300
+\hfuzz=0.2pt
+\vfuzz=0.2pt
+\hbadness 1414
+\vbadness 1000
+%\emergencystretch 1em
+\hyphenpenalty=30
+\widowpenalty=10000
+\clubpenalty=10000
+\doublehyphendemerits=50
+
+\pretolerance = 5000
+\tolerance = 9000
+\emergencystretch = 10pt
+\lefthyphenmin40
+\righthyphenmin40
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF settings and hyperref
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifpdfoutput{% PDF wird genutzt
+    \usepackage[pdftex]{graphicx,color}
+    %\usepackage{backref}
+    \usepackage[pdftex,
+        %pagebackref=true, hypertexnames=true,
+        plainpages=false,%
+        pdfpagelabels,
+        colorlinks=true,
+        citecolor=black,
+        linkcolor=black,%colorlinks=true,linkcolor=black,citecolor=black,filecolor=black,
+        %urlcolor=black,linkbordercolor={0 0 0},urlbordercolor={0 0 0},
+        bookmarks,
+        bookmarksnumbered,
+        bookmarksopen,
+        bookmarksopenlevel=1,
+        breaklinks,
+        unicode]{hyperref}
+    %\renewcommand*{\backref}[1]{}
+    %\renewcommand*{\backrefalt}[4]{\ifcase #1\relax \or \textit{(Zitiert auf Seite #2)} \else \textit{(Zitiert auf Seiten #2)} \fi}    
+    \pdfcompresslevel=9                 %Kompressionslevel für Text und Grafiken
+    \DeclareGraphicsExtensions{.pdf,.png,.jpg,.tif,.mps}
+    \hypersetup{pdftitle={\documentType \, - \myTitle \, (by \\myName)}, pdfauthor={\\myName}, pdfsubject={\documentType}, pdfkeywords={\myKeywords},pdfdisplaydoctitle,linkbordercolor={1 0.3 0},urlbordercolor={0.1 0.4 0.9},citebordercolor={0.1 0.6 0}%,pdfborderstyle={/S/U/W 1}
+    } \urlstyle{rm}
+    \usepackage{bookmark}
+} % 0 0 0 = schwarz, 1 1 1 = weiß
+{% Kein PDF
+    \usepackage{graphicx}
+    \usepackage{color}
+    \usepackage[hypertex,bookmarks,bookmarksnumbered,breaklinks]{hyperref}
+    \DeclareGraphicsExtensions{.eps, .ps}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notations and Abbreviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[nonumberlist,nopostdot,acronym,toc,sanitize=none]{glossaries} %sanitize={symbol=false}
+\newglossarystyle{formelzeichen}{
+    \renewenvironment{theglossary}{\begin{longtable}[l]{|p{3.0cm}|p{11.0cm}|}}{\end{longtable}}
+    \renewcommand*{\glossaryheader}{\hline \textbfs{Formelzeichen} & \textbfs{Bedeutung} \\\hline \endhead}
+    \renewcommand*{\arraystretch}{1.5}
+    \renewcommand*{\glossaryentryfield}[5]{%
+        \glsentryitem{##1}    \glstarget{##1}{##2} & ##3  \\\hline}
+    \renewcommand*{\glsgroupskip}{\relax}
+    \renewcommand*{\glsclearpage}{\clearpage}
+}
+\newcommand{\glsm}[1]{\gls*{#1}}
+\newcommand{\glsdt}[1]{\gls*{#1} & \glsdesc*{#1} \\}
+
+\makeglossaries
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Images and Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{upquote}
+\usepackage[section]{placeins}
+\definecolor{light-gray}{gray}{0.97}
+\lstset{captionpos=t,frame=single,%numbers=left,numberstyle=\tiny,
+breaklines=true,backgroundcolor=\color{white},
+numbersep=1pt,columns=fullflexible,xleftmargin=0.2cm,aboveskip=7pt,abovecaptionskip=10pt,belowskip=5pt,
+framexleftmargin=1pt,literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ö}{{\"o}}1 {ä}{{\"a}}1 {ü}{{\"u}}1 {ß}{{\ss}}1}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+%\raggedbottom
+\renewcommand\labelenumi{\sffamily\bfseries\theenumi.}
+
+\setlength{\LTpre}{10pt}
+\setlength{\LTpost}{15pt}
+
+%\usepackage[tight,TABTOPCAP]{subcaption}                      
+
+\renewcommand{\lstlistingname}{Listing}
+
+\renewcaptionname{english}{\figurename}{\itshape Figure}
+\renewcaptionname{english}{\tablename}{\itshape Tabele}
+
+\renewcommand{\thefigure}{\itshape \arabic{chapter}-\arabic{figure}}
+\renewcommand{\thetable}{\itshape \arabic{chapter}-\arabic{table}}
+
+\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{chapter}-\arabic{lstlisting}}}
+
+\renewcommand{\theequation}{\arabic{chapter}-\arabic{equation}}
+%\captionsetup{singlelinecheck=false,justification=justified,textfont=it}
+\newcommand{\textbfs}[1]{\textsf{\textbf{#1}}}
+\newenvironment{quotec}[1]{\list{}{\rightmargin\leftmargin}\item\glqq\relax\def\citat{#1}}{\grqq \; \citat \endlist}
+\newcommand{\captionq}[3]{\caption[#1 \lbrack #3\rbrack]{#1 \cite{#2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Literature
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\renewcommand{\@biblabel}[1]{[#1]\hfill}
+\makeatother
+\usepackage{eqparbox}
+\renewcommand*{\bibnumfmt}[1]{\eqparbox[t]{bblnm}{[#1]}}
+
+%\usepackage{graphicx}
+\usepackage[format=hang]{caption}
+% \captionsetup{format=plain} if caption is very long
+
+% for table generator html
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands and Notations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{Generic/Commands.tex}
+\include{Generic/Notation.tex}

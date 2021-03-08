@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% {{ chapter }} Format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begingroup
+
+\newcommand*{\thisChapter}{{ '{' }}{{ chapter_tex_path }}{{ '}' }}
+
+\graphicspath{{ '{{' }}\thisChapter/figures/{{ '}}' }}
+
+\chapter{{ '{' }}{{ chapter }}{{ '}' }}
+\label{{ '{' }}chp:{{ chapter_label }}{{ '}' }}
+
+\input{\thisChapter/{{ chapter_tex_path }}.tex}
+
+% Do not delete the SECTIONS comments.
+% They are used to auto insert sections.
+
+%++ SECTIONS ++%{% for section in sections %}
+\input{{ '{' }}\thisChapter/section_{{ section }}.tex{{ '}' }}{% endfor %}
+%-- SECTIONS --%
+
+\endgroup
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% {{ chapter }} Format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

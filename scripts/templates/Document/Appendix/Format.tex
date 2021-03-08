@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ihead{Notations}
+\begingroup
+\renewcommand*{\glsgroupskip}{}
+%\let\cleardoublepage\clearpage
+\setlength{\glsdescwidth}{0.82\linewidth}
+%\glsaddall                                         
+\printglossary[title=Abbreviations,type=\acronymtype,style=long]
+
+\cleardoublepage
+\printglossary[title=Notations,style=formelzeichen]
+\endgroup
+
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tables and list of figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ihead{Tables and list of figures}
+\listoffigures
+\clearpage
+\listoftables
+\cleardoublepage
+
+\nocite{*}
+\ihead{References}
+\bibliographystyle{ieeetr}
+\bibliography{Literature.bib}
+
+\cleardoublepage
+\rmfamily
+
+\ihead{Appendix}
+
+\bookmarksetup{startatroot}
+\pagenumbering{arabic}
+\renewcommand{\thepage}{A-\arabic{page}}
+\renewcommand{\addpart}[1]{\addcontentsline{toc}{part}{#1}}
+\phantomsection
+\addpart{\appendixname}
+\startcontents[parts]
+%\renewcommand{\thechapter}{A\Alph{chapter}}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\numberwithin{lstlisting}{section}
+\renewcommand{\thesection}{A\arabic{section}}
+\renewcommand{\thefigure}{A\arabic{section}-\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{section}-\arabic{table}}
+\renewcommand{\thelstlisting}{A\arabic{section}-\arabic{lstlisting}}
+
+% \chapter*{Appendix}
+% \label{chp:appendix}
+% \begin{sffamily}
+%     \printcontents[parts]{an}{1}{\textbfs{Appendix list} \hfill{\cfttoctitlefont\mdseries\normalsize Page\\}}
+% \end{sffamily}
+% \titlecontents{ansection}[7mm]% [left]
+% {\addvspace{-2mm}}% {above}
+% {\bf\contentslabel{7mm}}% {before with label}
+% {}% {before without label}
+% {\bf\titlerule*[2.7mm]{.}\contentspage}% {filler and page}
+% [\addvspace{-5mm}]% [after]
+% \clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Appendix/Appendix.tex}

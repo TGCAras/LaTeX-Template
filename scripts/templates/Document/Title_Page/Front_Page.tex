@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\newgeometry{left=30mm, right=30mm, top=20mm, bottom=5mm}
+% \begin{figure}[htb]
+% \centering
+% \begin{addmargin*}[-0.8cm]{0cm} % negativer Parameter verringert den Rand
+% \begin{minipage}[b]{0.5\textwidth} % [b] => Ausrichtung an \caption
+% \flushleft
+%   \inputgraphics[width=1.3\textwidth]{Titelseite/figures/LHT.pdf}
+% \end{minipage}
+% %\hspace{.01\linewidth}
+% \begin{minipage}[b]{0.5\textwidth}
+% \begin{addmargin*}[0cm]{0cm} % negativer Parameter verringert den Rand
+% \flushright
+%   \inputgraphics[width=0.6\textwidth]{Titelseite/figures/IEM.pdf}
+% \end{addmargin*}
+%  \end{minipage}
+% \end{addmargin*}
+
+% \end{figure}
+\sffamily
+%\huge
+
+\vspace*{3cm}
+\fontsize{24pt}{26pt}\selectfont
+\begin{center}
+\textbf{\documentType}
+
+\large
+\myCourseOfStudy
+\vspace*{3cm}
+
+\Large
+\textbf{\myTitle}
+\vspace*{1.8cm}
+
+\normalsize
+presented by
+
+\myName
+
+Matr. No. \myMatriculationNumber \\
+\vspace*{1.2cm}
+
+For obtaining the academic degree\\
+\vspace*{0.4cm}
+\intention\\
+\vspace*{1.5cm}
+
+% \large
+% %\textbf{~}
+\ifdefempty{\Restriction}{\textbf{\underline{\Restriction}}}{}
+\end{center}
+\vspace*{1cm}
+\normalsize
+
+
+Supervisor:
+\begin{tabbing}
+\quad\=Formel\quad\= Formel\quad\= Formel\quad\= Formel\quad\= Formel\quad\= Formel \quad\= Formel\quad\= Formel\kill  
+\myFirstReviewer\\
+\myFirstSupervisor\\
+\ifdefempty{\mySecondReviewer}{\\}{\mySecondReviewer\\}
+\ifdefempty{\mySecondSupervisor}{\\}{\mySecondSupervisor}
+\ifdefempty{\myThirdSupervisor}{}{\myThirdSupervisor} \>\>\>\>\>\>\> \myLocation, \myCreationDate
+\end{tabbing}
+\normalsize
+\vfill
+% \newpage
+% %----------------------------------------------------Seite2
+% \thispagestyle{empty}    %keine Nummerierung
+% \vspace*{15.5cm}
+
+% \documentType~  \ifdefempty{\meineArbeitsnummer}{}{Nr. \meineArbeitsnummer}
+
+% \vspace*{1cm}
+% \textbf{\myTitle}
+% \vspace*{0.25cm}
+
+% am: \myCreationDate\\
+
+% \makebox[8cm][l]{
+% \hspace{-3mm}
+% \parbox[t]{7.3cm}{
+% \begin{flushleft}
+
+% \rmfamily{\textbf{Signal and System Theory Group}}
+
+% \sffamily \small \vspace{0cm}
+% % TODO Lehrstuhl Anschrift
+% -\\
+% -\\
+% \end{flushleft}
+% }}
+% \makebox[7.5cm][r]{
+% \parbox[t]{7cm}{
+% \begin{flushleft}
+% \rmfamily{\textbf{\myCompany}}
+
+% \sffamily \small \myCompanyAddress
+% \end{flushleft}
+% }}
+
+% \vfill
+\end{titlepage}
