@@ -1,0 +1,200 @@
+% Reference: Git-Repository: https://github.com/PanCakeConnaisseur/latex-briefvorlage-din-5008
+
+\documentclass[
+    fontsize=12pt,
+    parskip=full,
+    paper=A4,
+    fromalign=right,
+    fromphone=true,
+    visualize,
+    fromemail=true,
+    % URL im Briefkopf anzeigen
+    %fromurl=true,
+    %
+    % Faltmarkierungen verbergen
+    %foldmarks=false,
+    version=last,
+]{scrlttr2}
+
+% define flags for enabling and disabling certain letter parts
+\newif\ifrefnumber
+\newif\ifrefdate
+\newif\ifattachements
+
+% retrieve letter configurations
+\input{Letter/Config.tex}
+
+%\showfields{address}
+%\setshowstyle{edges}
+
+\usepackage[utf8]{inputenc}
+\usepackage{marvosym}
+\usepackage{amsmath}
+\usepackage{eurosym}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\DeclareUnicodeCharacter{20AC}{\euro}
+
+% a custom todo command
+\newcommand{\todo}[1]{\noindent \textcolor{red}{\textbf{#1}}}
+
+\newcommand*\raiseup[1]{%
+        \begingroup
+        \setbox0\hbox{\tiny\strut #1}%
+        \leavevmode
+        \raise\dimexpr \ht\strutbox - \ht0\box0
+        \endgroup
+}
+
+% You may change the letter language here
+\usepackage[ngerman]{babel}
+\usepackage{blindtext}
+\usepackage{lipsum}
+
+% needed for including pdf (i.e. for attachments)
+\usepackage{pdfpages}
+
+
+
+\usepackage[pdftex,
+        %pagebackref=true, hypertexnames=true,
+        plainpages=false,%
+        pdfpagelabels,
+        colorlinks=true,
+        linkcolor=black,%colorlinks=true,linkcolor=black,
+        citecolor=black,%filecolor=black,
+        urlcolor=black,linkbordercolor={0 0 0},urlbordercolor={0 0 0},
+        bookmarks,
+        bookmarksnumbered,
+        bookmarksopen,
+        bookmarksopenlevel=1,
+        breaklinks,
+        unicode]{hyperref}
+
+\hypersetup{pdfdisplaydoctitle}
+
+\begin{document}
+    \hypersetup{pdftitle={\myHyperref}}
+
+    \makeatletter
+    \@setplength{sigbeforevskip}{6pt}
+    \makeatother
+
+    \renewcommand*{\raggedsignature}{\raggedright}
+
+    \renewcaptionname{ngerman}{\enclname}{Anlage}
+    \setkomavar{enclseparator}[{\bfseries\sffamily\enclname}]{:\ }
+
+    % Sender information
+    \footnotesize
+    \setkomavar{fromname}{\myName}
+    \setkomavar{fromaddress}{\myStreet\\\myAdditionalAddress\\\myPostCodeAndCity}
+    \setkomavar{fromphone}{\myPhone}
+
+    \setkomavar{fromemail}{\href{mailto:\myEmail}{\myEmail}}
+
+    % If you need an URL to be included as Sender information (Also need to set according flag in class def)
+    % \setkomavar{fromurl}[]{\href{http://absender.de}{absender.de}}
+
+    \makeatletter\setkomavar{firsthead}{%
+        %  \textbf{\usekomavar{fromname}}\\
+        %  \rule[1ex]{\textwidth}{.4pt}
+        %  \hspace*{\fill}\footnotesize
+        %  \begin{tabular}{l@{}}
+        %    \usekomavar{fromaddress}
+        %    \if@phone\\
+        %      \usekomavar*{fromphone}\usekomavar{fromphone}\fi
+        %    \if@fax\\
+        %      \usekomavar*{fromfax}\usekomavar{fromfax}\fi
+        %    \if@email\\
+        %      \usekomavar*{fromemail}\usekomavar{fromemail}\fi
+        %    \if@www\\
+        %      \usekomavar*{fromurl}\usekomavar{fromurl}\fi
+        %    \end{tabular}%
+    }\makeatother
+
+    % For bank information
+    %\setkomavar{frombank}{%
+    %The Bank\\
+    %IBAN: DE21~8765~4321~1345~6789\\
+    %BIC: GRML~DEHD~000}
+
+    % Costumer ID
+    %\setkomavar{customer}[\customername]{DE-112233}
+
+    % The letter reference
+    \setkomavar{yourref}[\yourrefname]{}
+    \renewcaptionname{ngerman}{\yourrefname}{-}
+
+    % Refer to message from date
+    \ifrefdate
+        \setkomavar{yourmail}[\yourmailname]{\myRefDate}
+    \fi
+    %% Reference Number
+    \ifrefnumber
+        \setkomavar{myref}{$\hookrightarrow$ \myReferenceNumber}
+        \renewcaptionname{ngerman}{\myrefname}{Referenz:}
+    \fi
+
+    \providecommand*{\mobilesymbol}{\Mobilefone}
+    \providecommand*{\phonesymbol}{\Telefon}
+    \providecommand*{\faxsymbol}{\FAX}
+    \providecommand*{\emailsymbol}{\Letter}
+
+    \makeatletter
+    \@addtoplength[-]{firstfootvpos}{.75cm}
+    \makeatother
+    \setkomavar{firstfoot}{%
+        \scriptsize%
+        \rule[5pt]{\textwidth}{.4pt}\\
+        \begin{tabular}[t]{@{}l@{}}%
+            %    \usekomavar{fromname}\\
+            %    \usekomavar{fromaddress}\\
+            \emailsymbol~\usekomavar{fromemail} \\
+        \end{tabular}%
+        \hfill
+        \begin{tabular}[t]{l}%
+            %     \phonesymbol~\usekomavar{fromphone}\\  % \mobilesymbol~
+            %     \\
+            \phonesymbol~\usekomavar{fromphone} \\  % \mobilesymbol~
+        \end{tabular}%
+        \ifkomavarempty{frombank}{}{%
+            \hfill
+            \begin{tabular}[t]{l@{}}%
+                \usekomavar{frombank}
+            \end{tabular}%
+        }%
+    }%
+
+    \setkomavar{signature}{\noindent\rule[-12pt]{\widthof{\myName}}{0.2pt} \\ \myName}
+
+    \setkomavar{backaddressseparator}{$\, \cdot \,$}
+
+    \begin{letter}{\mySendTo}
+
+        \setkomavar{place}{\myPlace}
+
+        \setkomavar{date}{\today}
+
+        \setkomavar{subject}{\mySubject}
+
+        \opening{\myOpening}
+
+        \input{Letter/Body.tex}
+
+        \closing{\myClosing}
+
+        \ps
+
+        \ifattachements
+            \vfill
+            \setkomavar*{enclseparator}{Anlagen}
+            \encl{\myAttachements}
+            \input{Letter/Attachments.tex}
+        \fi
+
+        %\cc{Bürgermeister, Vereinsvorsitzender}
+
+    \end{letter}
+
+\end{document}

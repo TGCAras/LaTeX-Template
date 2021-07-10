@@ -12,8 +12,9 @@ parser = argparse.ArgumentParser(
 parser.add_argument("document",
                     help="The documents root path.")
 
-parser.add_argument("chapter",
-                    help="Chapter name. Will be startet automatically if not already existing.")
+parser.add_argument("-c", "--chapter",
+                    help="Chapter name. Will be startet automatically if not already existing.",
+                    )
 
 parser.add_argument("-s", "--sections",
                     help="Section(s) to start.",
@@ -26,6 +27,9 @@ parser.add_argument("-i", "--insert",
 parser.add_argument("-a", "--append",
                     help="Alle insert attempts are appended.",
                     action="store_true")
+
+parser.add_argument("-t", "--type",
+                    help="Section(s) to start.")
 
 
 def write_template(path, content):
@@ -110,11 +114,20 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    document_type = args.type
+
     root = Path(args.document)
 
     if not (root.exists() and root.is_dir()):
         print("Document does not exist, creating it...")
-        start_document(args.document, script_root/"templates/Document")
+        if (args.type.lower()) == "thesis":
+            start_document(args.document, script_root/"templates/Document")
+        elif args.type.lower() == "letter":
+            start_document(args.document, script_root/"templates/Letter")
+        else:
+            print(f"Unknown type specified ({args.type})")
+            exit(1)
+
 
     main_file = list(root.glob("*.tex"))
     if len(main_file) == 1:
@@ -122,74 +135,75 @@ if __name__ == "__main__":
     else:
         print(f"No or too many main files were located: {main_file}")
 
-    chapter_name = args.chapter.strip()
-    chapter_underscore = chapter_name.replace(" ", "_")
-    chapter_label = chapter_name.replace(" ", "")
-    chapter_path = Path(chapter_underscore)
+    if args.type.lower == "thesis":
+        chapter_name = args.chapter.strip()
+        chapter_underscore = chapter_name.replace(" ", "_")
+        chapter_label = chapter_name.replace(" ", "")
+        chapter_path = Path(chapter_underscore)
 
-    chapter_path = root / chapter_path
+        chapter_path = root / chapter_path
 
-    if chapter_path.is_dir():
-        print(f"Found {chapter_path}.")
-    else:
-        print(f"Creating {chapter_path}...")
-        # create Chapter directory
-        chapter_path.mkdir(exist_ok=True)
+        if chapter_path.is_dir():
+            print(f"Found {chapter_path}.")
+        else:
+            print(f"Creating {chapter_path}...")
+            # create Chapter directory
+            chapter_path.mkdir(exist_ok=True)
 
-    # create figures dir
-    (chapter_path / "figures/svg_source").mkdir(exist_ok=True, parents=True)
+        # create figures dir
+        (chapter_path / "figures/svg_source").mkdir(exist_ok=True, parents=True)
 
-    section_names = [] if args.sections is None else args.sections
-    section_underscore = [s.replace(" ", "_") for s in section_names]
-    section_labels = [s.replace(" ", "") for s in section_names]
+        section_names = [] if args.sections is None else args.sections
+        section_underscore = [s.replace(" ", "_") for s in section_names]
+        section_labels = [s.replace(" ", "") for s in section_names]
 
-    # ─── FORMAT TEX FILE ────────────────────────────────────────────────────────────
+        # ─── FORMAT TEX FILE ────────────────────────────────────────────────────────────
 
-    format_file = chapter_path / "Format.tex"
-    if not format_file.exists():
-        print("Creating Format.tex file...")
-        format_template = template_env.get_template("format.tex.jinja2")
+        format_file = chapter_path / "Format.tex"
+        if not format_file.exists():
+            print("Creating Format.tex file...")
+            format_template = template_env.get_template("format.tex.jinja2")
 
-        content = format_template.render(chapter=chapter_name,
-                                         chapter_tex_path=chapter_underscore,
-                                         chapter_label=chapter_label,
-                                         sections=section_underscore)
-        write_template(format_file, content)
+            content = format_template.render(chapter=chapter_name,
+                                            chapter_tex_path=chapter_underscore,
+                                            chapter_label=chapter_label,
+                                            sections=section_underscore)
+            write_template(format_file, content)
 
-    # ─── CHAPTER TEX FILE ───────────────────────────────────────────────────────────
+        # ─── CHAPTER TEX FILE ───────────────────────────────────────────────────────────
 
-    chapter_file = chapter_path / f"{chapter_underscore}.tex"
-    if not chapter_file.exists():
-        print(f"Creating {chapter_underscore}.tex file...")
-        chapter_template = template_env.get_template("chapter.tex.jinja2")
+        chapter_file = chapter_path / f"{chapter_underscore}.tex"
+        if not chapter_file.exists():
+            print(f"Creating {chapter_underscore}.tex file...")
+            chapter_template = template_env.get_template("chapter.tex.jinja2")
 
-        content = chapter_template.render(chapter=chapter_name)
-        write_template(chapter_file, content)
-        if args.insert:
-            insert_includes(main_file,
-                            f"{chapter_underscore}/Format.tex",
-                            start="%++ CHAPTERS ++%",
-                            end="%-- CHAPTERS --%",
-                            function="include",
-                            append=args.append)
-
-    # ─── SECTIONS TEX FILE ───────────────────────────────────────────────────────────
-
-    sec_template = template_env.get_template("section.tex.jinja2")
-
-    for i_sec in range(len(section_names)):
-        sec_file = chapter_path / f"section_{section_underscore[i_sec]}.tex"
-        if not sec_file.exists():
-            print(f"Creating {section_underscore[i_sec]}.tex file...")
-
-            content = sec_template.render(section_name=section_names[i_sec],
-                                          section_label=section_labels[i_sec],
-                                          chapter=chapter_label)
-            write_template(sec_file, content)
+            content = chapter_template.render(chapter=chapter_name)
+            write_template(chapter_file, content)
             if args.insert:
-                insert_includes(format_file,
-                                f"\\thisChapter/section_{section_underscore[i_sec]}.tex",
-                                start="%++ SECTIONS ++%",
-                                end="%-- SECTIONS --%",
-                                function="input",
+                insert_includes(main_file,
+                                f"{chapter_underscore}/Format.tex",
+                                start="%++ CHAPTERS ++%",
+                                end="%-- CHAPTERS --%",
+                                function="include",
                                 append=args.append)
+
+        # ─── SECTIONS TEX FILE ───────────────────────────────────────────────────────────
+
+        sec_template = template_env.get_template("section.tex.jinja2")
+
+        for i_sec in range(len(section_names)):
+            sec_file = chapter_path / f"section_{section_underscore[i_sec]}.tex"
+            if not sec_file.exists():
+                print(f"Creating {section_underscore[i_sec]}.tex file...")
+
+                content = sec_template.render(section_name=section_names[i_sec],
+                                            section_label=section_labels[i_sec],
+                                            chapter=chapter_label)
+                write_template(sec_file, content)
+                if args.insert:
+                    insert_includes(format_file,
+                                    f"\\thisChapter/section_{section_underscore[i_sec]}.tex",
+                                    start="%++ SECTIONS ++%",
+                                    end="%-- SECTIONS --%",
+                                    function="input",
+                                    append=args.append)
